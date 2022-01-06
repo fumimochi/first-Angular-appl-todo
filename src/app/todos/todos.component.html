@@ -1,0 +1,26 @@
+<div class="container">
+    <div class="container__main">
+        <input type="text" #todoItem>
+        <button (click)="addTodo({content: todoItem.value, done: false}); todoItem.value = ''">ADD</button>
+    </div>
+</div>
+
+<ul *ngIf="todos.length; else noTodos">
+    <li *ngFor="let todo of todos; let i = index">
+        <div class="todo" [ngClass]="{done: todo.done}">
+            <p>{{ todo.content }}</p>
+            <div class="actionButtons">
+                <button (click)="makeDone(todo)">Make it done</button>
+                <button (click)="removeTodo(todo)">Remove list item</button>
+            </div>
+        </div>
+    </li>
+</ul>
+
+
+<!-- хотел сделать проверку на пустой инпут, по итогу проверяю наличие айтемов в списке :\ -->
+<ng-template #noTodos>
+    <div class="noTodo">
+        <p>No item in the list</p>
+    </div>
+</ng-template>    

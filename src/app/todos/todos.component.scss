@@ -1,0 +1,68 @@
+.container {
+    display: block;
+    margin: 0 auto;
+    height: 70px;
+
+    .container__main {
+        display: flex;
+        justify-content: space-evenly;
+
+        button {
+            height: 40px;
+            width: 70px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #fff;
+            background-color: #1a73e8;
+            cursor: pointer;
+
+            &:hover {
+                box-shadow: 0 1px 2px 0 rgb(26 115 232 / 45%), 0 1px 3px 1px rgb(26 115 232 / 30%);
+	            background-color: #297be6;
+            }
+        }
+        input {
+            font-size: 24px;
+        }
+    }
+}
+.done {
+    text-decoration: line-through;
+}
+.noTodo {
+    p {
+        font-size: 50px;
+        margin: 0 auto;
+        margin-top: 35px;
+        text-shadow: 36px;
+        line-height: 30px;
+        color:midnightblue;
+        text-align: center;
+    }
+}
+li {
+    border-top: 1px solid black;
+
+    .actionButtons {
+        margin-bottom: 10px;
+
+        button {
+            height: 45px;
+            margin-left: 10px;
+            color: white;
+            font-weight: 700;
+            padding: .5em 2em;
+            outline: none;
+            border: 2px solid;
+            border-radius: 1px;
+            transition: 0.2s;
+            background-color: black;
+            cursor: pointer;
+
+            &:hover {
+                background: gray;
+            }
+        }
+    }
+}
