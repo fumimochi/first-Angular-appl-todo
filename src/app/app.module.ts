@@ -3,20 +3,12 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { TodosComponent } from './todos/todos.component';
-import { TodosItemsComponent } from './todos-items/todos-items.component';
+import { COMPONENTS } from './components';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    TodosComponent,
-    TodosItemsComponent
-  ],
-  imports: [
-    BrowserModule,
-    HttpClientModule
-  ],
+  declarations: [AppComponent, ...COMPONENTS],
+  imports: [BrowserModule, HttpClientModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
