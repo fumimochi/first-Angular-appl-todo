@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { TodoService } from './services/todos.service';
 
-export interface Todo {
+export interface ITodo {
   content: string
   done: boolean
 }
@@ -12,22 +13,9 @@ export interface Todo {
 })
 export class TodosComponent {
 
-  todos: Todo[] = [];
+  constructor(private service: TodoService) { }
 
-  constructor() { }
-
-  addTodo(todo: Todo) {
-    todo.content.length != 0 ? this.todos.unshift(todo) : console.error('Expected any symbol in input');
-  }
-
-  removeTodo(todo: Todo) {
-    const idx = this.todos.indexOf(todo);
-    this.todos.splice(idx, 1);
-  }
-
-  makeDone(todo: Todo) {
-    const neededTodo = this.todos.find(i => i == todo);
-    neededTodo!.done = true;
-  }
+  public todos = this.service.todos;
+  public addTodo = this.service.addTodo;
 
 }

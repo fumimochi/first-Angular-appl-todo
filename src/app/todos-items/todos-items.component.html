@@ -1,0 +1,18 @@
+<ul *ngIf="todos.length; else noTodos">
+    <li *ngFor="let todo of todos; let i = index">
+        <div class="todo" [ngClass]="{done: todo.done}">
+            <p>{{ todo.content }}</p>
+            <div class="actionButtons">
+                <button (click)="makeDone(todo)">Make it done</button>
+                <button (click)="removeTodo(todo)">Remove list item</button>
+            </div>
+        </div>
+    </li>
+</ul>
+
+
+<ng-template #noTodos>
+    <div class="noTodo">
+        <p>No item in the list</p>
+    </div>
+</ng-template>  

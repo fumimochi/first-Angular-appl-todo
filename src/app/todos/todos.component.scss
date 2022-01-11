@@ -27,42 +27,4 @@
         }
     }
 }
-.done {
-    text-decoration: line-through;
-}
-.noTodo {
-    p {
-        font-size: 50px;
-        margin: 0 auto;
-        margin-top: 35px;
-        text-shadow: 36px;
-        line-height: 30px;
-        color:midnightblue;
-        text-align: center;
-    }
-}
-li {
-    border-top: 1px solid black;
 
-    .actionButtons {
-        margin-bottom: 10px;
-
-        button {
-            height: 45px;
-            margin-left: 10px;
-            color: white;
-            font-weight: 700;
-            padding: .5em 2em;
-            outline: none;
-            border: 2px solid;
-            border-radius: 1px;
-            transition: 0.2s;
-            background-color: black;
-            cursor: pointer;
-
-            &:hover {
-                background: gray;
-            }
-        }
-    }
-}
