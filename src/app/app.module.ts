@@ -4,11 +4,13 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { COMPONENTS } from './components';
+import { TodosItemComponent } from './components/todos-item/todos-item.component';
+import { UsersService } from './services/users.service';
 
 @NgModule({
-  declarations: [AppComponent, ...COMPONENTS],
+  declarations: [AppComponent, ...COMPONENTS, TodosItemComponent],
   imports: [BrowserModule, HttpClientModule],
-  providers: [],
+  providers: [UsersService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

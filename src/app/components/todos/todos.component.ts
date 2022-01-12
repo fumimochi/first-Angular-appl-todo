@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { TodoService } from './services/todos.service';
+import { UsersService } from 'src/app/services/users.service';
+import { TodoService } from '../../services/todos.service';
 
 export interface ITodo {
   content: string
@@ -13,9 +14,19 @@ export interface ITodo {
 })
 export class TodosComponent {
 
-  constructor(private service: TodoService) { }
+  users = [];
+
+  constructor(private service: TodoService, private usersService: UsersService) { }
 
   public todos = this.service.todos;
   public addTodo = this.service.addTodo;
+
+  loadUsers() {
+    this.usersService
+      .getUsers()
+      .subscribe(response => {
+        console.log(response);
+      });
+  }
 
 }

@@ -2,10 +2,8 @@
     <div class="container__main">
         <input type="text" #todoItem>
         <button (click)="addTodo({content: todoItem.value, done: false}); todoItem.value = ''">ADD</button>
+        <button (click)="loadUsers()">GET USERS</button>
     </div>
 </div>
 
 <app-todos-items></app-todos-items>
-
-
-  
