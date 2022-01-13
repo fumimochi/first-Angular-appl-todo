@@ -1,4 +1,3 @@
-import { TodosItemsComponent } from './todos-items/todos-items.component';
-import { TodosComponent } from './todos/todos.component';
+import { AuthComponent } from '../auth/auth.component';
 
-export const COMPONENTS = [TodosComponent, TodosItemsComponent];
+export const COMPONENTS = [];
