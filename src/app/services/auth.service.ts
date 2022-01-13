@@ -1,16 +1,15 @@
 export class AuthService {
+  isLoggedIn = false;
 
-    isLoggedIn = false;
+  isAuth() {
+    return this.isLoggedIn;
+  }
 
-    isAuth() {
-        return this.isLoggedIn;
-    }
+  logIn() {
+    this.isLoggedIn = true;
+  }
 
-    logIn() {
-        this.isLoggedIn = true;
-    }
-
-    logOut() {
-        this.isLoggedIn = false;
-    }
+  logOut() {
+    this.isLoggedIn = false;
+  }
 }
