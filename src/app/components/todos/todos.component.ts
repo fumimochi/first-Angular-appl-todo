@@ -16,12 +16,12 @@ export class TodosComponent {
 
   users = [];
 
-  constructor(private service: TodoService, private usersService: UsersService) { }
+  constructor(private readonly service: TodoService, private readonly usersService: UsersService) { }
 
   public todos = this.service.todos;
   public addTodo = this.service.addTodo;
 
-  loadUsers() {
+  public loadUsers() {
     this.usersService
       .getUsers()
       .subscribe(response => {

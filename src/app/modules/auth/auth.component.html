@@ -1,5 +1,16 @@
 <h1>Authentication Page</h1>
-<h2>Please choose one of the following buttons below for login/logout</h2>
+<h2>Please enter your login&password and then choose one of the following buttons below for login/logout</h2>
+
+<div class="singIn">
+    <div class="sign__login">
+        <p>Enter your login:</p>
+        <input type="text" (input)="login">
+    </div>
+    <div class="sign__password">
+        <p>Enter your password:</p>
+        <input type="text" (input)="password">
+    </div>
+</div>
 
 <button (click)="changeLoginStatus('login')">LOG IN</button>
 <button (click)="changeLoginStatus('logout')">LOG OUT</button>

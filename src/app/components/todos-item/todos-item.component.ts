@@ -12,7 +12,7 @@ export class TodosItemComponent {
 
   @Input('todoItem')
   todo!: { content: string; done: boolean; };
-  // ПРОСИДЕЛ 1.5 ЧАСА НЕ ВЫКУПАЯ СИНТАКСИС !:
+  
 
   public todos = this.service.todos;
   public removeTodo = this.service.removeTodo;

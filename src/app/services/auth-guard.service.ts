@@ -6,6 +6,7 @@ import {
   UrlTree,
 } from '@angular/router';
 import { Observable } from 'rxjs';
+
 import { AuthService } from './auth.service';
 
 @Injectable()
@@ -20,7 +21,6 @@ export class AuthGuard implements CanActivate {
     | UrlTree
     | Observable<boolean | UrlTree>
     | Promise<boolean | UrlTree> {
-    console.log('route: ', state.url);
-    return this.auth.isAuth() ? true : false;
+    return this.auth.isAuth() ? false : true;
   }
 }
