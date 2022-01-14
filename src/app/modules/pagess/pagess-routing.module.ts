@@ -1,13 +1,25 @@
-import { NgModule } from "@angular/core";
-import { RouterModule, Routes } from "@angular/router";
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 
-import { TodosComponent } from "src/app/components/todos/todos.component";
-import { PagessComponent } from "./pagess.component";
+import { PagessComponent } from './pagess.component';
 
-const routes: Routes = [{ path: '', component: TodosComponent }]; 
+const routes: Routes = [
+  {
+    path: '',
+    component: PagessComponent,
+    children: [
+      { path: '', redirectTo: 'todos', pathMatch: 'full' },
+      {
+        path: 'todos',
+        loadChildren: () =>
+          import('./modules/todos/todos.module').then((m) => m.TodosModule),
+      },
+    ],
+  },
+];
 
 @NgModule({
-    imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
 })
-export class PagessRoutingModule { }
+export class PagessRoutingModule {}

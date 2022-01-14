@@ -1,18 +1,21 @@
 import { Component } from '@angular/core';
 
-import { AuthService } from 'src/app/services/auth.service';
-import { UsersService } from 'src/app/services/users.service';
+import { AuthService } from 'src/app/core/services/auth.service';
+import { UsersService } from 'src/app/core/services/users.service';
 
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
-  styleUrls: ['./auth.component.scss']
+  styleUrls: ['./auth.component.scss'],
 })
 export class AuthComponent {
   login: string = '';
   password: string = '';
 
-  constructor(private readonly authService: AuthService, private readonly usersService: UsersService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private readonly usersService: UsersService
+  ) {}
 
   arr = this.usersService.getUsers();
 

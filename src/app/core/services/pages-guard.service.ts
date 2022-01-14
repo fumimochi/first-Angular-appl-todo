@@ -2,18 +2,25 @@ import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
   CanActivate,
+  Router,
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
 import { Observable } from 'rxjs';
+import { RoutesData } from '../routes';
 
 import { AuthService } from './auth.service';
 
-@Injectable()
-export class AuthGuard implements CanActivate {
-  constructor(private readonly auth: AuthService) {}
+@Injectable({
+  providedIn: 'root',
+})
+export class PagesGuard implements CanActivate {
+  constructor(
+    private readonly pagesService: AuthService,
+    private readonly _router: Router
+  ) {}
 
-  public canActivate(
+  canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ):
@@ -21,6 +28,12 @@ export class AuthGuard implements CanActivate {
     | UrlTree
     | Observable<boolean | UrlTree>
     | Promise<boolean | UrlTree> {
-    return this.auth.isAuth() ? false : true;
+    if (this.pagesService.isAuth()) {
+      return true;
+    }
+
+    this._router.navigate([RoutesData.AppEnum.AUTH]);
+
+    return false;
   }
 }
