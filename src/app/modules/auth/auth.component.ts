@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 
 import { AuthService } from 'src/app/modules/auth/auth.service';
-import { UsersService } from 'src/app/core/services/users.service';
-import { filter, map } from 'rxjs';
+import { map } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-auth',
@@ -22,18 +22,20 @@ export class AuthComponent {
 
   constructor(
     private readonly authService: AuthService,
-    private readonly usersService: UsersService
+    private readonly http: HttpClient
   ) {}
   
   changeLoginStatus(status: string) {
     if (status === 'login') {
+      
       let testToken = {login: `${this.login}`, password: `${this.password}`};
-      this.usersService.getUsers().pipe(map(user => JSON.stringify(user) == JSON.stringify(testToken) )).subscribe(x => {
-        console.log(x)
-      });
-      console.log(JSON.stringify(testToken))
-      this.authService.logIn(JSON.stringify(testToken))
-      // this.authService.checkData(this.login, this.password, this.arr);
+      let response = this.http.get(`http://localhost:3000/users?login=${this.login}&password=${this.password}`)
+        .pipe(map(user => JSON.stringify(user)))
+        .subscribe(x => {
+          x.length > 5 
+          ? this.authService.logIn(JSON.stringify(testToken))
+          : console.error('No such data')
+        });
     }
   }
 }
