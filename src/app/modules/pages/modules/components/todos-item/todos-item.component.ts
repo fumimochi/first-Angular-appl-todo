@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { TodoService } from '../../core/services/todos.service';
+import { TodoService } from '../../todos/todos.service';
 
 @Component({
   selector: 'app-todos-item',
@@ -7,12 +7,12 @@ import { TodoService } from '../../core/services/todos.service';
   styleUrls: ['./todos-item.component.scss'],
 })
 export class TodosItemComponent {
-  constructor(private readonly service: TodoService) {}
+  constructor(private readonly todoService: TodoService) {}
 
   @Input('todoItem')
   todo!: { content: string; done: boolean };
 
-  public todos = this.service.todos;
-  public removeTodo = this.service.removeTodo;
-  public makeDone = this.service.makeDone;
+  public todos = this.todoService.todos;
+  public removeTodo = this.todoService.removeTodo;
+  public makeDone = this.todoService.makeDone;
 }

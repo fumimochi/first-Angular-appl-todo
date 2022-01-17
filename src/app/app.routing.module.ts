@@ -1,21 +1,18 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { RoutesData } from './core/routes';
 
-import { AuthGuard } from './core/services/auth-guard.service';
-import { PagesGuard } from './core/services/pages-guard.service';
+import { RoutesData } from './core/routes';
+import { AppGuard } from './core/services/app-guard.service';
 
 const todoRoutes: Routes = [
   {
     path: RoutesData.AppEnum.PAGES,
-    canActivate: [PagesGuard],
     loadChildren: () =>
-      import('./modules/pagess/pagess.module').then((n) => n.PagesModule),
+      import('./modules/pages/pages.module').then((n) => n.PagesModule),
   },
   {
     path: RoutesData.AppEnum.AUTH,
-    /* TODO */
-    canActivate: [AuthGuard],
+    canActivate: [AppGuard],
     loadChildren: () =>
       import('./modules/auth/auth.module').then((m) => m.AuthModule),
   },
