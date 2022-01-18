@@ -2,17 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { TodoService } from 'src/app/modules/pages/modules/todos/todos.service';
 import { UsersService } from 'src/app/core/services/users.service';
 
-export interface ITodo  {
-  content: string,
-  done: boolean
+export interface ITodo {
+  content: string;
+  done: boolean;
 }
 
 @Component({
   selector: 'app-todos',
   templateUrl: './todos.component.html',
-  styleUrls: ['./todos.component.scss']
+  styleUrls: ['./todos.component.scss'],
 })
-export class TodosComponent   {
+export class TodosComponent {
   users = [];
 
   constructor(
@@ -22,9 +22,9 @@ export class TodosComponent   {
 
   public todos = this.todoService.todos;
   public addTodo = this.todoService.addTodo;
-  
+
   public loadUsers() {
-    this.usersService.getUsers().subscribe((response) => {
+    this.usersService.getAllUsers().subscribe((response) => {
       console.log(response);
     });
   }

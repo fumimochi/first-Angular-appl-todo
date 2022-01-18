@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+
+import { finalize } from 'rxjs';
 
 import { AuthService } from 'src/app/modules/auth/auth.service';
-import { map } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { IUser } from 'src/app/core/services/users.service';
 
 @Component({
   selector: 'app-auth',
@@ -10,32 +12,45 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./auth.component.scss'],
 })
 export class AuthComponent {
-  public login: string = '';
-  public password: string = '';
+  public isLoading: boolean;
 
-  getLogin(event: Event) {
-    this.login = (<HTMLInputElement>event.target).value;
-  }
-  getPassword(event: Event) {
-    this.password = (<HTMLInputElement>event.target).value;
+  public readonly form = new FormGroup({
+    login: new FormControl(null, [
+      Validators.required,
+      Validators.minLength(3),
+    ]),
+    password: new FormControl(null, [Validators.required]),
+  });
+
+  public get canLogIn(): boolean {
+    return this.form.valid && !this.isLoading;
   }
 
-  constructor(
-    private readonly authService: AuthService,
-    private readonly http: HttpClient
-  ) {}
-  
-  changeLoginStatus(status: string) {
-    if (status === 'login') {
-      
-      let testToken = {login: `${this.login}`, password: `${this.password}`};
-      let response = this.http.get(`http://localhost:3000/users?login=${this.login}&password=${this.password}`)
-        .pipe(map(user => JSON.stringify(user)))
-        .subscribe(x => {
-          x.length > 5 
-          ? this.authService.logIn(JSON.stringify(testToken))
-          : console.error('No such data')
-        });
-    }
+  private get _dto(): IUser {
+    return this.form.value;
+  }
+
+  constructor(private readonly authService: AuthService) {}
+
+  public logIn() {
+    this.isLoading = true;
+
+    this.authService
+      .logIn(this._dto)
+      .pipe(
+        finalize(() => {
+          this.isLoading = false;
+        })
+      )
+      .subscribe(
+        () => {
+          console.log('SUCCESSFUL LOGGED IN!');
+        },
+        (error) => {
+          console.error('FAILED LOGGED IN!');
+
+          console.error(error);
+        }
+      );
   }
 }
