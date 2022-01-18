@@ -1,9 +1,8 @@
 <div class="container">
-    <div class="container__main">
-        <input type="text" #todoItem>
-        <button (click)="addTodo({content: todoItem.value, done: false}); todoItem.value = ''">ADD</button>
-        <button (click)="loadUsers()">GET USERS</button>
-    </div>
+  <div class="container__main">
+    <input type="text" [formControl]="control" />
+    <button [disabled]="control.invalid" (click)="addTodo()">ADD</button>
+  </div>
 </div>
 
 <app-todos-items></app-todos-items>
