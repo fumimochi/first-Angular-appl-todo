@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { TodoService } from '../../todos/todos.service';
+import { TodosService } from '../../todos/todos.service';
 
 @Component({
   selector: 'app-todos-item',
@@ -7,7 +7,7 @@ import { TodoService } from '../../todos/todos.service';
   styleUrls: ['./todos-item.component.scss'],
 })
 export class TodosItemComponent {
-  constructor(private readonly todoService: TodoService) {}
+  constructor(private readonly todoService: TodosService) {}
 
   @Input('todoItem')
   todo!: { content: string; done: boolean };

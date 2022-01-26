@@ -1,0 +1,66 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Vlad",
+      "age": 20,
+      "sex": "male",
+      "experience": [1]
+    },
+    {
+      "id": 2,
+      "name": "Slava",
+      "age": 30,
+      "sex": "male",
+      "experience": [3, 2, 4, 1]
+    },
+    {
+      "id": 3,
+      "name": "Yura",
+      "age": 30,
+      "sex": "male",
+      "experience": [3, 1]
+    },
+    {
+      "id": 4,
+      "name": "Elena",
+      "age": 25,
+      "sex": "female"
+    },
+    {
+      "id": 5,
+      "name": "Irina",
+      "age": 33,
+      "sex": "female",
+      "experience": [3, 2]
+    }
+  ],
+  "companies": [
+    {
+      "id": 1,
+      "title": "GL"
+    },
+    {
+      "id": 2,
+      "title": "TM"
+    },
+    {
+      "id": 3,
+      "title": "Nexteum"
+    },
+    {
+      "id": 4,
+      "title": "Niko-tech"
+    }
+  ],
+  "signIns": [
+    {
+      "login": "Vlad",
+      "password": "1234"
+    },
+    {
+      "login": "Slava",
+      "password": "1234"
+    }
+  ]
+}

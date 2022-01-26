@@ -12,7 +12,7 @@ export interface IUser {
   providedIn: 'root',
 })
 export class UsersService {
-  private readonly _baseApiRoute = 'http://localhost:3000/users';
+  private readonly _baseApiRoute = 'http://localhost:3000/signIns';
 
   constructor(private readonly http: HttpClient) {}
 

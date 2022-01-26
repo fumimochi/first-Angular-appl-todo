@@ -33,6 +33,10 @@ export class AppGuard implements CanActivate {
     if(state.url === '/todos' && !this.authService.isAuth()) {
       this._router.navigateByUrl(RoutesData.AppEnum.AUTH);
       return true;
+    }  
+    if(state.url === '/users' && !this.authService.isAuth()) {
+      this._router.navigateByUrl(RoutesData.AppEnum.AUTH);
+      return true;
     }   
     if(state.url === '/auth' && this.authService.isAuth()) {
       this._router.navigate([RoutesData.AppEnum.PAGES]);

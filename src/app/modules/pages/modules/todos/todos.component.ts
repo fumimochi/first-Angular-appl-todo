@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TodoService } from 'src/app/modules/pages/modules/todos/todos.service';
+import { TodosService } from 'src/app/modules/pages/modules/todos/todos.service';
 import { UsersService } from 'src/app/core/services/users.service';
 import { FormControl, Validators } from '@angular/forms';
 
@@ -22,7 +22,7 @@ export class TodosComponent {
   ]);
 
   constructor(
-    private readonly todoService: TodoService,
+    private readonly todoService: TodosService,
     private readonly usersService: UsersService
   ) {}
 

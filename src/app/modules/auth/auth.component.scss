@@ -1,7 +1,21 @@
-
-h2 {
+h1,h2 {
     text-align: center;
+}
+h2 {
+    color:slategray;
+    font-style: italic;
 }
 button {
     margin: 15px 30px;
+}
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.create_user {
+    height: 40px;
+    position: absolute;
+    bottom: 0;
 }

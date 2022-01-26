@@ -1,0 +1,24 @@
+<form [formGroup]="form">
+  <div class="find">
+    <div class="find__head">
+      <h3>Search user by name</h3>
+      <button (click)="changeTimerStatus()">Refresh users list timer</button>
+      <span>{{timer}}</span>
+    </div>
+    <input type="text" formControlName="findName">
+  </div>
+  <button type="submit">Find user</button>
+</form>
+<ul *ngIf="filteredUsers.length == 0; else fff">
+  <li *ngFor="let user of users; let i = index">
+    <span>{{user.name}}</span>
+    <span *ngIf="user.experience">{{user.experience}}</span>
+  </li>
+</ul>
+<ng-template #fff>
+  <ul>
+    <li *ngFor="let filter of filteredUsers">
+      <p>{{filter.name + ' - age: ' + filter.age + ' - sex: ' + filter.sex + ' - experience: ' + filter.experience}}</p>
+    </li>
+  </ul>
+</ng-template>

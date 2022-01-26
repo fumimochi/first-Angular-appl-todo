@@ -5,7 +5,7 @@ import { ITodo } from './todos.component';
 @Injectable({
   providedIn: 'root',
 })
-export class TodoService {
+export class TodosService {
   public todos: ITodo[] = [];
 
   public addTodo(todo: ITodo) {

@@ -1,20 +1,25 @@
-<h1>Authentication Page</h1>
-<h2>
-  Please enter your login&password and then choose one of the following buttons
-  below for login/logout
-</h2>
-
 <div class="singIn">
-  <form [formGroup]="form">
-    <div class="sign__login">
-      <p>Enter your login:</p>
-      <input formControlName="login" type="text" />
-    </div>
-    <div class="sign__password">
-      <p>Enter your password:</p>
-      <input formControlName="password" type="password" />
-    </div>
-  </form>
+  <div class="sign__titles">
+    <h1>Authentication Page</h1>
+    <h2>
+      Please enter your login&password and then choose one of the following buttons
+      below for login/logout
+    </h2>
+  </div>
+    <form [formGroup]="form">
+      <div class="sign__login">
+        <p>Enter your login:</p>
+        <input formControlName="login" type="text" />
+      </div>
+      <div class="sign__password">
+        <p>Enter your password:</p>
+        <input formControlName="password" type="password" />
+      </div>
+      <button (click)="logIn()" [disabled]="!canLogIn">LOG IN</button>
+      <div class="create_user">
+        <a routerLink="/auth/create">Registrate your profile here!</a>
+      </div>
+    </form>
 </div>
 
-<button (click)="logIn()" [disabled]="!canLogIn">LOG IN</button>
+

@@ -14,6 +14,8 @@ import { IUser } from 'src/app/core/services/users.service';
 export class AuthComponent {
   public isLoading: boolean;
 
+  constructor(private readonly authService: AuthService) {}
+  
   public readonly form = new FormGroup({
     login: new FormControl(null, [
       Validators.required,
@@ -29,8 +31,6 @@ export class AuthComponent {
   private get _dto(): IUser {
     return this.form.value;
   }
-
-  constructor(private readonly authService: AuthService) {}
 
   public logIn() {
     this.isLoading = true;
