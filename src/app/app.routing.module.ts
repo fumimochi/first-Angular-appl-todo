@@ -9,6 +9,7 @@ const todoRoutes: Routes = [
     path: RoutesData.AppEnum.PAGES,
     loadChildren: () =>
       import('./modules/pages/pages.module').then((n) => n.PagesModule),
+    canActivate: [AppGuard],
   },
   {
     path: RoutesData.AppEnum.AUTH,

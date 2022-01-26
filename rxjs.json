@@ -37,12 +37,12 @@
   ],
   "companies": [
     {
-      "id": 1,
-      "title": "GL"
-    },
-    {
       "id": 2,
       "title": "TM"
+    },
+    {
+      "id": 1,
+      "title": "GL"
     },
     {
       "id": 3,

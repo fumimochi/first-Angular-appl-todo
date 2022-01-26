@@ -13,16 +13,18 @@ const routes: Routes = [
       { path: '', redirectTo: 'todos', pathMatch: 'full' },
       {
         path: RoutesData.AppEnum.TODOS,
-        canActivate: [AppGuard],
+
         loadChildren: () =>
           import('./modules/todos/todos.module').then((m) => m.TodosModule),
       },
       {
         path: RoutesData.AppEnum.USERS,
-        canActivate: [AppGuard],
+
         loadChildren: () =>
-          import('./modules/userManagement/user-management.module').then(n => n.UserManagementModule)
-      }
+          import('./modules/userManagement/user-management.module').then(
+            (n) => n.UserManagementModule
+          ),
+      },
     ],
   },
 ];
