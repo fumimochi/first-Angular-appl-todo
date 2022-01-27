@@ -1,14 +1,11 @@
-<form [formGroup]="form">
-  <div class="find">
-    <div class="find__head">
-      <h3>Search user by name</h3>
-      <button (click)="changeTimerStatus()">Refresh users list timer</button>
-      <span>{{ timer }}</span>
-    </div>
-    <input type="text" formControlName="findName" />
+<div class="find">
+  <div class="find__head">
+    <h3>Search user by name</h3>
+    <button (click)="changeTimerStatus()">Refresh users list timer</button>
+    <span>{{ timer }}</span>
   </div>
-  <button type="submit">Find user</button>
-</form>
+  <input type="text" [formControl]="controlName" />
+</div>
 
 <ul *ngIf="filteredUsers?.length; else noUserRef">
   <li *ngFor="let filter of filteredUsers">
@@ -20,12 +17,12 @@
           " - sex: " +
           filter.sex +
           " - experience: " +
-          filter.experience
+          filter.experienceAsTitle
       }}
     </p>
   </li>
 </ul>
 
 <ng-template #noUserRef>
-  <span>No users yet</span>
+  <div class="noUsers">No users with similar name</div>
 </ng-template>

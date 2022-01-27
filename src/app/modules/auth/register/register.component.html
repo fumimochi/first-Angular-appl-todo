@@ -1,3 +1,26 @@
-<p>
-  register works!
-</p>
+<form [formGroup]="form" (ngSubmit)="submitNewUser()">
+  <div class="datas">
+    <div>
+      <p>User name:</p>
+      <input type="text" formControlName="name">
+    </div>
+    <div>
+      <p>Age:</p>
+      <input type="text" formControlName="age">
+    </div>
+    <div>
+      <p>Sex:</p>
+      <select formControlName="sex">
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+      </select>
+    </div>
+    <div>
+      <p>Experience:</p>
+      <select formControlName="experience">
+        <option value="TA">ta</option>
+      </select>
+    </div>
+    <button [disabled]="form.invalid" type="submit">Register new user</button>
+  </div>
+</form>

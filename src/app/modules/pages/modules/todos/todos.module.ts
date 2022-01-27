@@ -4,8 +4,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { TodosRoutingModule } from './todos-routing.module';
 import { TodosComponent } from './todos.component';
-import { TodosItemsComponent } from '../components/todos-items/todos-items.component';
-import { TodosItemComponent } from '../components/todos-item/todos-item.component';
+import { TodosItemsComponent } from './components/todos-items/todos-items.component';
+import { TodosItemComponent } from './components/todos-item/todos-item.component';
 
 @NgModule({
   declarations: [TodosComponent, TodosItemsComponent, TodosItemComponent],

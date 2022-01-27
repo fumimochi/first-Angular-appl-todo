@@ -27,7 +27,7 @@ export class UserManagementService {
         return this.http.get<Companies[]>(this._baseCompaniesApiRoute);
     }
 
-    timerRefresh() {
+    public timerRefresh() {
         return this.http.get(this._baseUsersApiRoute)
         .pipe(
             // dela( 10000 )

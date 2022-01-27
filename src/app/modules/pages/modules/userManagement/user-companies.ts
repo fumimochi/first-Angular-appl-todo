@@ -4,8 +4,8 @@ export class User {
         public name: string, 
         public age: number, 
         public sex: string,
-        public experience: Array<any>,
-        public experienceAsTitle?: Array<string>
+        public experience: Array<number>,
+        public experienceAsTitle: Array<string> 
     ) { }
 }
 

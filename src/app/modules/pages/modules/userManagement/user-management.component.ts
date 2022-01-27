@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import {
   debounceTime,
   forkJoin,
@@ -7,8 +7,6 @@ import {
   map,
   Subscription,
   take,
-  takeUntil,
-  timeout,
 } from 'rxjs';
 
 import { User, Companies } from './user-companies';
@@ -20,20 +18,17 @@ import { UserManagementService } from './user-management.service';
   styleUrls: ['./user-management.component.scss'],
 })
 export class UserManagementComponent implements OnInit {
-  timer: number = 0;
-  timerActive: boolean = false;
-  users: User[] = [];
-  filteredUsers: User[] = [];
-  companies: Companies[] = [];
+  public timer: number = 0;
+  public timerActive: boolean = false;
+  public users: User[] = [];
+  public filteredUsers: User[] = [];
+  public companies: Companies[] = [];
 
-  timerSub: Subscription;
+  public timerSub: Subscription;
 
-  public readonly form = new FormGroup({
-    findName: new FormControl(null, [
-      Validators.required,
-      Validators.minLength(4),
-    ]),
-  });
+  public controlName = new FormControl(null, [
+    Validators.required
+  ])
 
   constructor(private readonly _usersManageService: UserManagementService) {}
 
@@ -45,17 +40,19 @@ export class UserManagementComponent implements OnInit {
       this._usersManageService.getCompanies(),
     ]).subscribe(([users, companies]) => {
       this.users = users;
-      this.filteredUsers = [...this.users];
       this.companies = companies;
+      
+      this.users.forEach(i => i.experienceAsTitle = []);
 
       for (const user of this.users.filter(({ experience }) => !!experience)) {
         for (const experience of user.experience) {
-          // let currentVal = experience;
-          // i.experience.splice(0, 1);
-          /* ABSOLUTELY WRONG */
-          // user.experience.push(this.companies[currentVal - 1].title);
-          // i.experience.splice(0, 1)  Cannot read properties of undefined
-          /* TODO */
+          let exp =  this.companies.find(exp => exp.id === experience)
+          if(exp) {
+            user.experienceAsTitle.push(exp.title);
+          }
+          else {
+            user.experienceAsTitle.push('This user has no experience');
+          } 
           // use findItem and push to experienceAsTitle, before initialize experienceAsTitle= []
         }
       }
@@ -63,29 +60,23 @@ export class UserManagementComponent implements OnInit {
   }
 
   public onFilter() {
-    /* TODO   change to formControl, not FormGRoup .... se todos.component as example */
-    this.form
-      .get('findName')
+    this.controlName
       .valueChanges.pipe(debounceTime(1_000))
-      .subscribe((val) => {
+      .subscribe((val: string) => {
         if (val) {
           this.filteredUsers = [];
-          this.users.filter((i) => {
-            i.name === val
-              ? this.filteredUsers.push(i)
+          this.users.filter((user) => {
+            user.name.toLowerCase().startsWith(val.toLowerCase())
+              ? this.filteredUsers.push(user)
               : console.log('User wasn`t found');
           });
-
-          /* TODO */
-          // create filter method that does not depend on caps lock, partial phrase
-
           return;
         }
 
         this.filteredUsers = [...this.users];
       });
 
-    this.form.reset();
+    this.controlName.reset();
   }
 
   public launchTimer() {
@@ -93,9 +84,6 @@ export class UserManagementComponent implements OnInit {
 
     if (!this.timerActive) {
       this.timer = 0;
-
-      /* TODO investigate about unsubscribe */
-
       this.timerSub?.unsubscribe();
 
       return;
@@ -110,8 +98,8 @@ export class UserManagementComponent implements OnInit {
       if (d === 9) {
         this._usersManageService
           .getUsers()
-          .pipe(map((i) => i))
-          .subscribe((i: any) => (this.users = i));
+          .pipe(map((info) => info))
+          .subscribe((uData: any) => (this.users = uData));
         this.launchTimer();
       }
     });

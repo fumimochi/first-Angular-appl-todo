@@ -7,9 +7,9 @@ import { AppGuard } from './core/services/app-guard.service';
 const todoRoutes: Routes = [
   {
     path: RoutesData.AppEnum.PAGES,
+    canActivate: [AppGuard],
     loadChildren: () =>
       import('./modules/pages/pages.module').then((n) => n.PagesModule),
-    canActivate: [AppGuard],
   },
   {
     path: RoutesData.AppEnum.AUTH,
