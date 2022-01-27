@@ -12,7 +12,14 @@
       "name": "Slava",
       "age": 30,
       "sex": "male",
-      "experience": [3, 2, 4, 1]
+      "experience": [3, 2, 4, 1, 11]
+    },
+    {
+      "id": 20,
+      "name": "Stas",
+      "age": 30,
+      "sex": "male",
+      "experience": [3, 2, 4, 1, 11]
     },
     {
       "id": 3,

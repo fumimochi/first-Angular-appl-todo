@@ -8,6 +8,7 @@ import {
   Subscription,
   take,
 } from 'rxjs';
+import { PagesModels } from '../../models';
 
 import { User, Companies } from './user-companies';
 import { UserManagementService } from './user-management.service';
@@ -20,17 +21,17 @@ import { UserManagementService } from './user-management.service';
 export class UserManagementComponent implements OnInit {
   public timer: number = 0;
   public timerActive: boolean = false;
-  public users: User[] = [];
+  public users: PagesModels.User.IUser[] = [];
   public filteredUsers: User[] = [];
   public companies: Companies[] = [];
 
   public timerSub: Subscription;
 
-  public controlName = new FormControl(null, [
-    Validators.required
-  ])
+  public controlName = new FormControl(null, [Validators.required]);
 
   constructor(private readonly _usersManageService: UserManagementService) {}
+
+  /* TODO: implement method setFilteredUser with params users, companies, filterValue */
 
   ngOnInit() {
     this.onFilter();
@@ -41,42 +42,49 @@ export class UserManagementComponent implements OnInit {
     ]).subscribe(([users, companies]) => {
       this.users = users;
       this.companies = companies;
-      
-      this.users.forEach(i => i.experienceAsTitle = []);
+      this.filteredUsers = [...this.users];
 
-      for (const user of this.users.filter(({ experience }) => !!experience)) {
+      for (const user of this.users) {
+        if (!user.experience?.length) {
+          user.experienceAsTitle = ['This user has no experience'];
+
+          continue;
+        }
+
+        user.experienceAsTitle = [];
+
         for (const experience of user.experience) {
-          let exp =  this.companies.find(exp => exp.id === experience)
-          if(exp) {
+          let exp = this.companies.find((exp) => exp.id === experience);
+          if (exp) {
             user.experienceAsTitle.push(exp.title);
+          } else {
+            user.experienceAsTitle.push(`Unknown company #${experience}`);
           }
-          else {
-            user.experienceAsTitle.push('This user has no experience');
-          } 
-          // use findItem and push to experienceAsTitle, before initialize experienceAsTitle= []
         }
       }
     });
   }
 
   public onFilter() {
-    this.controlName
-      .valueChanges.pipe(debounceTime(1_000))
+    this.controlName.valueChanges
+      .pipe(debounceTime(1_000))
       .subscribe((val: string) => {
         if (val) {
           this.filteredUsers = [];
-          this.users.filter((user) => {
-            user.name.toLowerCase().startsWith(val.toLowerCase())
-              ? this.filteredUsers.push(user)
-              : console.log('User wasn`t found');
+          this.users.forEach((user) => {
+            if (user.name.toLowerCase().startsWith(val.toLowerCase())) {
+              this.filteredUsers.push(user);
+            }
           });
+
           return;
         }
 
+        /* TODO: read about array methods () */
+        /* TODO: add reset icon */
+
         this.filteredUsers = [...this.users];
       });
-
-    this.controlName.reset();
   }
 
   public launchTimer() {
@@ -100,6 +108,7 @@ export class UserManagementComponent implements OnInit {
           .getUsers()
           .pipe(map((info) => info))
           .subscribe((uData: any) => (this.users = uData));
+        /* TODO update filteredUsers */
         this.launchTimer();
       }
     });
