@@ -15,10 +15,10 @@
         <option value="female">Female</option>
       </select>
     </div>
-    <div>
+    <div class="select__exp">
       <p>Experience:</p>
-      <select formControlName="experience">
-        <option value="TA">ta</option>
+      <select formControlName="experience" multiple="multiple">
+        <option *ngFor="let exp of experiences" value="exp">{{exp}}</option>
       </select>
     </div>
     <button [disabled]="form.invalid" type="submit">Register new user</button>

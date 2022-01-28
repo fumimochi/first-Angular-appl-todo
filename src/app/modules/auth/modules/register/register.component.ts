@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { map, Observable } from 'rxjs';
+import { PagesModels } from 'src/app/modules/pages/models';
+import { RegisterService } from './register.service';
 
 @Component({
   selector: 'app-register',
@@ -8,8 +11,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class RegisterComponent implements OnInit {
   public experiences: Array<string> = [];
+  public companies: PagesModels.Companies.ICompanies[] = [];
 
-  // constructor(private readonly _registerService) {  }
+  constructor(private readonly _registerService: RegisterService) {  }
 
   public readonly form = new FormGroup({
     name: new FormControl(
@@ -31,11 +35,22 @@ export class RegisterComponent implements OnInit {
   });
 
   ngOnInit() {
+      this._registerService.getCompanies()
+        .subscribe((company) => {
+          this.companies = company;
+          this.companies.forEach(comp => {
+            this.experiences.push(comp.title)
+          })
+        });
+      
       
   }
 
   public submitNewUser() {
-    console.log('submited');
+    this._registerService.addUser(this.form.value)
+      .subscribe((json) => {
+        console.log(json)
+      });
   }
 
 }

@@ -4,7 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { finalize } from 'rxjs';
 
 import { AuthService } from 'src/app/modules/auth/auth.service';
-import { IUser } from 'src/app/core/services/users.service';
+import { AuthModels } from './models';
 
 @Component({
   selector: 'app-auth',
@@ -28,7 +28,7 @@ export class AuthComponent {
     return this.form.valid && !this.isLoading;
   }
 
-  private get _dto(): IUser {
+  private get _dto(): AuthModels.User.IUser {
     return this.form.value;
   }
 

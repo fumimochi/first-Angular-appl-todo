@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { map, Observable, tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
+
 import { RoutesData } from 'src/app/core/routes';
-import { IUser, UsersService } from 'src/app/core/services/users.service';
+import { UsersService } from 'src/app/core/services/users.service';
+import { AuthModels } from './models';
 
 @Injectable({
   providedIn: 'root',
@@ -26,9 +28,9 @@ export class AuthService {
     return !!this._token;
   }
 
-  public logIn(dto: IUser): Observable<unknown> {
+  public logIn(dto: AuthModels.User.IUser): Observable<unknown> {
     return this._usersService.getUser(dto).pipe(
-      tap((user: IUser) => {
+      tap((user: AuthModels.User.IUser) => {
         this.onSuccessAuth(user);
       })
     );
@@ -42,7 +44,7 @@ export class AuthService {
 
   /* HELPERs */
 
-  private onSuccessAuth(user: IUser) {
+  private onSuccessAuth(user: AuthModels.User.IUser) {
     const token = JSON.stringify(user);
 
     this._token = token;

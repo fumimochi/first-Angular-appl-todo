@@ -8,9 +8,8 @@ import {
   Subscription,
   take,
 } from 'rxjs';
-import { PagesModels } from '../../models';
 
-import { User, Companies } from './user-companies';
+import { PagesModels } from '../../models';
 import { UserManagementService } from './user-management.service';
 
 @Component({
@@ -22,16 +21,13 @@ export class UserManagementComponent implements OnInit {
   public timer: number = 0;
   public timerActive: boolean = false;
   public users: PagesModels.User.IUser[] = [];
-  public filteredUsers: User[] = [];
-  public companies: Companies[] = [];
-
+  public filteredUsers: PagesModels.User.IUser[] = [];
+  public companies: PagesModels.Companies.ICompanies[] = [];
   public timerSub: Subscription;
-
   public controlName = new FormControl(null, [Validators.required]);
 
   constructor(private readonly _usersManageService: UserManagementService) {}
 
-  /* TODO: implement method setFilteredUser with params users, companies, filterValue */
 
   ngOnInit() {
     this.onFilter();
@@ -43,26 +39,26 @@ export class UserManagementComponent implements OnInit {
       this.users = users;
       this.companies = companies;
       this.filteredUsers = [...this.users];
+      this.setFilteredUser(this.users, this.companies);
+    });
+  }
 
-      for (const user of this.users) {
-        if (!user.experience?.length) {
-          user.experienceAsTitle = ['This user has no experience'];
-
-          continue;
-        }
-
-        user.experienceAsTitle = [];
-
-        for (const experience of user.experience) {
-          let exp = this.companies.find((exp) => exp.id === experience);
-          if (exp) {
-            user.experienceAsTitle.push(exp.title);
-          } else {
-            user.experienceAsTitle.push(`Unknown company #${experience}`);
-          }
+  public setFilteredUser(users, companies) {
+    for (const user of users) {
+      if (!user.experience?.length) {
+        user.experienceAsTitle = ['This user has no experience'];
+        continue;
+      }
+      user.experienceAsTitle = [];
+      for (const experience of user.experience) {
+        let exp = companies.find((exp) => exp.id === experience);
+        if (exp) {
+          user.experienceAsTitle.push(exp.title);
+        } else {
+          user.experienceAsTitle.push(`Unknown company #${experience}`);
         }
       }
-    });
+    } 
   }
 
   public onFilter() {
@@ -76,15 +72,15 @@ export class UserManagementComponent implements OnInit {
               this.filteredUsers.push(user);
             }
           });
-
           return;
         }
-
-        /* TODO: read about array methods () */
-        /* TODO: add reset icon */
-
         this.filteredUsers = [...this.users];
       });
+  }
+
+  public resetValue() {
+    this.controlName.patchValue('');
+    this.filteredUsers = [...this.users];
   }
 
   public launchTimer() {
@@ -93,24 +89,24 @@ export class UserManagementComponent implements OnInit {
     if (!this.timerActive) {
       this.timer = 0;
       this.timerSub?.unsubscribe();
-
       return;
     }
-
     const takeTenSec = obs$.pipe(take(10));
-    this.timerSub = takeTenSec.subscribe((d) => {
-      this.timer = d;
-
+    this.timerSub = takeTenSec.subscribe((sec) => {
+      this.timer = sec;
       console.log('TIMER BODY!');
-
-      if (d === 9) {
+      if (sec === 9) {
         this._usersManageService
           .getUsers()
           .pipe(map((info) => info))
-          .subscribe((uData: any) => (this.users = uData));
-        /* TODO update filteredUsers */
+          .subscribe((uData: any) => {
+            (this.users = uData)
+            this.setFilteredUser(this.users, this.companies);
+            this.filteredUsers = [...this.users];
+          });
         this.launchTimer();
       }
+      this.onFilter(); 
     });
   }
 

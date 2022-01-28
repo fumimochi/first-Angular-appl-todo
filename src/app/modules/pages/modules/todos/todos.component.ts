@@ -3,18 +3,13 @@ import { TodosService } from 'src/app/modules/pages/modules/todos/todos.service'
 import { UsersService } from 'src/app/core/services/users.service';
 import { FormControl, Validators } from '@angular/forms';
 
-export interface ITodo {
-  content: string;
-  done: boolean;
-}
-
 @Component({
   selector: 'app-todos',
   templateUrl: './todos.component.html',
   styleUrls: ['./todos.component.scss'],
 })
 export class TodosComponent {
-  users = [];
+  public users = [];
 
   public control = new FormControl(null, [
     Validators.required,

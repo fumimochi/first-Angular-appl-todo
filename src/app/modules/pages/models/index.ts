@@ -9,4 +9,18 @@ export namespace PagesModels {
       experienceAsTitle: Array<string>;
     }
   }
+
+  export namespace Companies {
+    export interface ICompanies {
+      id: number,
+      title: string
+    }
+  }
+
+  export namespace Todo {
+    export interface ITodo {
+      content: string,
+      done: boolean
+    }
+  }
 }

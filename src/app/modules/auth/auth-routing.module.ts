@@ -12,7 +12,7 @@ const routes: Routes = [
   {
     path: RoutesData.AppEnum.CREATE,
     loadChildren: () =>
-      import('./register/register.module').then((m) => m.RegisterModule),
+      import('./modules/register/register.module').then((m) => m.RegisterModule),
   }
 ];
 

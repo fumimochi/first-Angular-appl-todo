@@ -1,7 +1,8 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { delay, interval, Observable, timeout } from "rxjs";
-import { Companies, User } from "./user-companies";
+import { delay, Observable } from "rxjs";
+
+import { PagesModels } from "../../models";
 
 @Injectable({
     providedIn: 'root',
@@ -12,8 +13,8 @@ export class UserManagementService {
 
     constructor(private readonly http: HttpClient) { }
 
-    public getUsers(): Observable<User[]> {
-        return this.http.get<User[]>(this._baseUsersApiRoute);
+    public getUsers(): Observable<PagesModels.User.IUser[]> {
+        return this.http.get<PagesModels.User.IUser[]>(this._baseUsersApiRoute);
     }
 
     public getUserByName(name: string) {
@@ -24,7 +25,7 @@ export class UserManagementService {
     }
 
     public getCompanies() {
-        return this.http.get<Companies[]>(this._baseCompaniesApiRoute);
+        return this.http.get<PagesModels.Companies.ICompanies[]>(this._baseCompaniesApiRoute);
     }
 
     public timerRefresh() {
