@@ -55,16 +55,6 @@
         3,
         2
       ]
-    },
-    {
-      "name": "Ejen",
-      "age": "21",
-      "sex": "male",
-      "experience": [
-        "exp",
-        "exp"
-      ],
-      "id": 21
     }
   ],
   "companies": [

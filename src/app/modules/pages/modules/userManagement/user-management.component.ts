@@ -39,11 +39,11 @@ export class UserManagementComponent implements OnInit {
       this.users = users;
       this.companies = companies;
       this.filteredUsers = [...this.users];
-      this.setFilteredUser(this.users, this.companies);
+      this.setUserExperience(this.users, this.companies);
     });
   }
 
-  public setFilteredUser(users, companies) {
+  public setUserExperience(users, companies) {
     for (const user of users) {
       if (!user.experience?.length) {
         user.experienceAsTitle = ['This user has no experience'];
@@ -65,16 +65,7 @@ export class UserManagementComponent implements OnInit {
     this.controlName.valueChanges
       .pipe(debounceTime(1_000))
       .subscribe((val: string) => {
-        if (val) {
-          this.filteredUsers = [];
-          this.users.forEach((user) => {
-            if (user.name.toLowerCase().startsWith(val.toLowerCase())) {
-              this.filteredUsers.push(user);
-            }
-          });
-          return;
-        }
-        this.filteredUsers = [...this.users];
+        this.checkValueForFilter(val);
       });
   }
 
@@ -101,13 +92,26 @@ export class UserManagementComponent implements OnInit {
           .pipe(map((info) => info))
           .subscribe((uData: any) => {
             (this.users = uData)
-            this.setFilteredUser(this.users, this.companies);
-            this.filteredUsers = [...this.users];
+            this.setUserExperience(this.users, this.companies);
+
+            this.checkValueForFilter(this.controlName.value);
           });
         this.launchTimer();
       }
-      this.onFilter(); 
     });
+  }
+
+  public checkValueForFilter(value: string) {
+    if(value) {
+      this.filteredUsers = [];
+      this.users.forEach((user) => {
+      if (user.name.toLowerCase().startsWith(value.toLowerCase())) {
+        this.filteredUsers.push(user);
+      }
+      });
+      return;
+    }
+    this.filteredUsers = [...this.users];
   }
 
   public changeTimerStatus() {
