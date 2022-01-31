@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { delay, Observable } from "rxjs";
+import { delay, map, Observable } from "rxjs";
 
 import { PagesModels } from "../../models";
 
@@ -33,5 +33,9 @@ export class UserManagementService {
         .pipe(
             // dela( 10000 )
         )
+    }
+
+    public deleteUser(user: any) {
+        return this.http.delete(`${this._baseUsersApiRoute}/${user.id}`)
     }
 }

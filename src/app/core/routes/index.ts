@@ -4,6 +4,7 @@ export namespace RoutesData {
     PAGES = '',
     CREATE = 'create',
     TODOS = 'todos',
-    USERS = 'users'
+    USERS = 'users',
+    ADD_USER = 'add-user'
   }
 }

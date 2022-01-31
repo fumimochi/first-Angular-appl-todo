@@ -13,7 +13,9 @@ const routes: Routes = [
       {
         path: RoutesData.AppEnum.TODOS,
         loadChildren: () =>
-          import('./modules/todos/todos.module').then((m) => m.TodosModule),
+          import('./modules/todos/todos.module').then(
+            (m) => m.TodosModule
+          ),
       },
       {
         path: RoutesData.AppEnum.USERS,
@@ -22,6 +24,13 @@ const routes: Routes = [
             (n) => n.UserManagementModule
           ),
       },
+      {
+        path: RoutesData.AppEnum.ADD_USER,
+        loadChildren: () =>
+          import('./modules/add-user/add-user.module').then(
+            (k) => k.AddUserModule
+          )
+      }
     ],
   },
 ];

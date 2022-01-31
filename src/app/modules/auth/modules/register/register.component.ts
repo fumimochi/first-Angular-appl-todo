@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { map, Observable } from 'rxjs';
-import { PagesModels } from 'src/app/modules/pages/models';
+
+import { AuthModels } from '../../models';
 import { RegisterService } from './register.service';
 
 @Component({
@@ -10,47 +10,44 @@ import { RegisterService } from './register.service';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-  public experiences: Array<string> = [];
-  public companies: PagesModels.Companies.ICompanies[] = [];
+  public suchLoginExists: boolean = false;
+  public regCreated: boolean = false;
+  public regInfo: AuthModels.User.IUser[] = [];
 
-  constructor(private readonly _registerService: RegisterService) {  }
-
+  constructor(private readonly _registerService: RegisterService) {}
+  
   public readonly form = new FormGroup({
-    name: new FormControl(
-      '', 
+    login: new FormControl(
+      '',
+      [Validators.required, Validators.minLength(3)]
+    ),
+    password: new FormControl(
+      '',
       [Validators.required, Validators.minLength(4)]
     ),
-    age: new FormControl(
-      '', 
-      Validators.required // custom validator just for numbers
-    ),
-    sex: new FormControl(
-      'male',
-      Validators.required
-    ),
-    experience: new FormControl(
-      '',
-      Validators.required
-    )
-  });
+  })
 
   ngOnInit() {
-      this._registerService.getCompanies()
-        .subscribe((company) => {
-          this.companies = company;
-          this.companies.forEach(comp => {
-            this.experiences.push(comp.title)
-          })
-        });
-      
-      
+    this._registerService.getReg()
+      .subscribe(info => {
+        this.regInfo = info;
+      })
   }
 
-  public submitNewUser() {
-    this._registerService.addUser(this.form.value)
-      .subscribe((json) => {
-        console.log(json)
-      });
+  public submitRegistrated() {
+    let check = this.regInfo.find((login) => login.login === this.form.get('login').value);
+    if(!check) {
+      this.suchLoginExists = false;
+      this._registerService.addRegistration(this.form.value)
+        .subscribe();
+      this.form.reset();
+      this.regCreated = true;
+    } else {
+      this.suchLoginExists = true;
+    }
+    
   }
+
+
 
 }

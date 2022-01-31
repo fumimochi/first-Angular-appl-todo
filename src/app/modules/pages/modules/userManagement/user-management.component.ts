@@ -18,6 +18,7 @@ import { UserManagementService } from './user-management.service';
   styleUrls: ['./user-management.component.scss'],
 })
 export class UserManagementComponent implements OnInit {
+  public crossExists: boolean = false;
   public timer: number = 0;
   public timerActive: boolean = false;
   public users: PagesModels.User.IUser[] = [];
@@ -32,6 +33,10 @@ export class UserManagementComponent implements OnInit {
   ngOnInit() {
     this.onFilter();
 
+    this.forkJoin();
+  }
+
+  public forkJoin() {
     forkJoin([
       this._usersManageService.getUsers(),
       this._usersManageService.getCompanies(),
@@ -51,7 +56,7 @@ export class UserManagementComponent implements OnInit {
       }
       user.experienceAsTitle = [];
       for (const experience of user.experience) {
-        let exp = companies.find((exp) => exp.id === experience);
+        let exp = companies.find((exp) => exp.id == experience);
         if (exp) {
           user.experienceAsTitle.push(exp.title);
         } else {
@@ -65,7 +70,7 @@ export class UserManagementComponent implements OnInit {
     this.controlName.valueChanges
       .pipe(debounceTime(1_000))
       .subscribe((val: string) => {
-        this.checkValueForFilter(val);
+        this.filter(val);
       });
   }
 
@@ -94,14 +99,15 @@ export class UserManagementComponent implements OnInit {
             (this.users = uData)
             this.setUserExperience(this.users, this.companies);
 
-            this.checkValueForFilter(this.controlName.value);
+            this.filter(this.controlName.value);
           });
         this.launchTimer();
       }
     });
   }
 
-  public checkValueForFilter(value: string) {
+  public filter(value: string) {
+    this.crossExists = true;
     if(value) {
       this.filteredUsers = [];
       this.users.forEach((user) => {
@@ -110,6 +116,8 @@ export class UserManagementComponent implements OnInit {
       }
       });
       return;
+    } else {
+      this.crossExists = false;
     }
     this.filteredUsers = [...this.users];
   }
@@ -118,5 +126,13 @@ export class UserManagementComponent implements OnInit {
     this.timerActive = !this.timerActive;
 
     this.launchTimer();
+  }
+
+  public deleteUser(user: PagesModels.User.IUser) {
+    this._usersManageService.deleteUser(user)
+      .subscribe((data) => {
+        this.users = this.users.filter(u => u.id !== user.id)
+        this.filteredUsers = [...this.users];
+      })
   }
 }

@@ -47,14 +47,14 @@
       "sex": "female"
     },
     {
-      "id": 5,
-      "name": "Irina",
-      "age": 33,
-      "sex": "female",
+      "name": "papi4",
+      "age": "44",
+      "sex": "male",
       "experience": [
-        3,
-        2
-      ]
+        "1",
+        "2"
+      ],
+      "id": 23
     }
   ],
   "companies": [
@@ -77,12 +77,24 @@
   ],
   "signIns": [
     {
+      "id": 1,
       "login": "Vlad",
       "password": "1234"
     },
     {
+      "id": 2,
       "login": "Slava",
       "password": "1234"
+    },
+    {
+      "login": "Denis",
+      "password": "den22",
+      "id": 3
+    },
+    {
+      "login": "Katya",
+      "password": "ld123",
+      "id": 4
     }
   ]
 }

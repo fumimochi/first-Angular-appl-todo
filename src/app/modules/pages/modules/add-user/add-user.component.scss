@@ -1,0 +1,21 @@
+.datas {
+    position: absolute;
+    left: 50%;
+    margin-top: 100px;
+
+    button {
+        margin-top: 15px;
+    }
+
+    select {
+        width: 70px;
+        height: 24px;
+    }
+
+    .select__exp {
+        select {
+            width: 100px;
+            height: 70px;
+        }
+    }
+}

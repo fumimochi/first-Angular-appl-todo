@@ -1,21 +1,16 @@
-.datas {
-    position: absolute;
-    left: 50%;
-    margin-top: 250px;
-
-    button {
-        margin-top: 15px;
-    }
-
-    select {
-        width: 70px;
-        height: 24px;
-    }
-
-    .select__exp {
-        select {
-            width: 100px;
-            height: 70px;
-        }
-    }
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+}
+button {
+    margin-top: 20px;
+}
+#toAuth {
+    margin-left: 20px;
+}
+#loginExists {
+    color: red;
+    font-size: 20px;
 }

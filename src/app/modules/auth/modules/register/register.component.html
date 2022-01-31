@@ -1,26 +1,23 @@
-<form [formGroup]="form" (ngSubmit)="submitNewUser()">
-  <div class="datas">
-    <div>
-      <p>User name:</p>
-      <input type="text" formControlName="name">
-    </div>
-    <div>
-      <p>Age:</p>
-      <input type="text" formControlName="age">
-    </div>
-    <div>
-      <p>Sex:</p>
-      <select formControlName="sex">
-        <option value="male">Male</option>
-        <option value="female">Female</option>
-      </select>
-    </div>
-    <div class="select__exp">
-      <p>Experience:</p>
-      <select formControlName="experience" multiple="multiple">
-        <option *ngFor="let exp of experiences" value="exp">{{exp}}</option>
-      </select>
-    </div>
-    <button [disabled]="form.invalid" type="submit">Register new user</button>
-  </div>
-</form>
+<div class="container">
+    <p>Enter registration info below:</p>
+    <form [formGroup]="form">
+        <div >
+            <div>
+                <p>Login:</p>
+                <input type="text" formControlName="login">
+                <p *ngIf="suchLoginExists" id="loginExists">User with such login exists!</p>
+            </div>
+            <div>
+                <p>Password:</p>
+                <input type="password" formControlName="password">
+            </div>
+        </div>
+        <div class="buttons">
+            <button  [disabled]="form.invalid" (click)="submitRegistrated()">Send data</button>
+            <button id="toAuth" routerLink="/auth">Back to auth page</button>
+        </div>
+        <p *ngIf="regCreated">Registration has been successfully ended</p>
+    </form>
+</div>
+
+<!-- [disabled]="form.invalid" -->

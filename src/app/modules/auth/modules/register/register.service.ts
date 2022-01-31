@@ -1,23 +1,23 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { map } from "rxjs";
-import { PagesModels } from "src/app/modules/pages/models";
+
+import { AuthModels } from "../../models";
 
 @Injectable({
     providedIn: 'root',
 })
 export class RegisterService {
-    private readonly _baseCompaniesApiRoute = 'http://localhost:3000/companies';
-    private readonly _baseUsersApiRoute = 'http://localhost:3000/users';
-
-    constructor(private readonly http: HttpClient) { }
+    private readonly _baseSignInApiRoute = 'http://localhost:3000/signIns';
     
-    public getCompanies() {
-        return this.http.get<PagesModels.Companies.ICompanies[]>(this._baseCompaniesApiRoute);
+    constructor(private readonly http: HttpClient) {}
+
+    public getReg() {
+        return this.http.get<AuthModels.User.IUser[]>(this._baseSignInApiRoute);
     }
 
-    public addUser(datas: PagesModels.User.IUser) {
-        return this.http.post(this._baseUsersApiRoute, datas)
+    public addRegistration(reg: AuthModels.User.IUser) {
+        return this.http.post(this._baseSignInApiRoute, reg)
             .pipe(map(response => JSON.stringify(response)));
     }
 }
